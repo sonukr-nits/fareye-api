@@ -11,19 +11,21 @@ class JsonEditor extends React.Component {
     }
     handleChange = (json)=>{
         console.log(json)
+        this.props.onJsonChange(json)
     }
     render() { 
 
         return (
         <div className="json-body">
-            <Editor 
+            <Editor
+            name={this.props.name} 
             search={false}
             statusBar={false}
             navigationBar={false}
             mode={this.props.mode || "view"}
             tag='div'
             value={this.props.data} 
-            onChange={this.props.onJsonChange} />
+            onChange={this.handleChange} />
         </div>);
     }
 }

@@ -70,3 +70,10 @@ export const processApiData = [
         requestBody: {referenceNumber:""}
     }
 ]
+
+
+export const APIs={
+    GET_API_KEY:"http://localhost:8787/app/apiKey",
+    GET_REQUEST_ENDPOINT : "http://localhost:8787/app/get"
+
+}
