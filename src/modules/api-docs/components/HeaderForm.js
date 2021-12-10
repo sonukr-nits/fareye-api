@@ -3,9 +3,10 @@ import { Form, Input, Button, Select, Row, Col, message } from 'antd';
 import { loginService } from '../service/LoginService';
 import Sha256 from 'sha256';
 import axios from 'axios';
-import { APIs } from '../common/constant';
+import { APIs, serverName } from '../common/constant';
 import { isEmpty } from 'lodash';
 const { Option } = Select;
+
 
 class HeaderForm extends React.Component {
 
@@ -85,10 +86,9 @@ class HeaderForm extends React.Component {
                             disabled={!isEmpty(window.localStorage.getItem("fareyeApiKey"))}
                             // value={()=> (window.localStorage.getItem("fareyeServer"))}
                             onChange={this.handleEnvChange}>
-                                <Option value="https://qatest.fareye.co">QaTest</Option>
-                                <Option value="https://staging.fareye.co">Staging</Option>
-                                <Option value="https://fareye.co">Main Prod</Option>
-                                <Option value="http://localhost:8080">Localhost</Option>
+                                {serverName.map((entry) => (
+                                    <Option key={entry.name} value={entry.value}>{entry.name}</Option>
+                                ))};
                             </Select>
                         </Form.Item>
                     </Col>
