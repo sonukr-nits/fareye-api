@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, List, Button, Modal } from 'antd';
 import axios from 'axios';
-import { transactionsApiData, processApiData, APIs } from '../common/constant'
+import { transactionsApiData, processApiData, APIs, cityApiList, dsApiList } from '../common/constant'
 import JsonEditor from './JsonEditor'
 import { cloneDeep, isEmpty } from 'lodash';
 const JsonEditorChunk = ()=> import('./JsonEditor')
@@ -32,7 +32,7 @@ class ApiList extends React.Component {
         
         var url = serverUrl + this.state.apiObj.endPoint + '?api_key='+apiKey;
         let requestObj = cloneDeep(this.state.jsonRequestBody);
-       
+    
         if(this.state.apiObj.method=="GET"){
             var params="";
             Object.keys(requestObj).forEach(key=>{
@@ -45,15 +45,17 @@ class ApiList extends React.Component {
 
         }
         else if(this.state.apiObj.method=="POST"){
-
+            let requestBody = JSON.stringify(requestObj);
+            let requestPayload = {url, apiKey, requestBody};
+            this.hitAPIandSetResponse(APIs.POST_REQUEST_ENDPOINT, requestPayload);
         }
-       
+
 
 
     }
 
     hitAPIandSetResponse= (url, requestBody) => {
-          
+
         axios.post(url, requestBody).then((res)=>{
             console.log(res)
             let responseObj ={
@@ -91,6 +93,26 @@ class ApiList extends React.Component {
             <div className="api-listing">
                 <div className="api-list">
                     <div className="api-item">
+                        <Divider orientation="left">Process</Divider>
+
+                        <List
+                            size="default"
+                            bordered
+                            dataSource={processApiData}
+                            renderItem={apiObj =>
+                                <List.Item
+                                    actions={[<Button onClick={this.handleApiClick(apiObj)} size="small" type="primary">{apiObj.method}</Button>]}
+                                >
+                                    <List.Item.Meta
+                                        title={<span>{apiObj.title}</span>}
+                                        description={<span>{apiObj.endPoint}</span>}
+                                    />
+                                </List.Item>}
+                        />
+                    </div>
+                </div>
+                <div className="api-list">
+                    <div className="api-item">
                         <Divider orientation="left">Transactions</Divider>
                         <List
                             size="default"
@@ -110,12 +132,32 @@ class ApiList extends React.Component {
                 </div>
                 <div className="api-list">
                     <div className="api-item">
-                        <Divider orientation="left">Process</Divider>
+                        <Divider orientation="left">City</Divider>
 
                         <List
                             size="default"
                             bordered
-                            dataSource={processApiData}
+                            dataSource={cityApiList}
+                            renderItem={apiObj =>
+                                <List.Item
+                                    actions={[<Button onClick={this.handleApiClick(apiObj)} size="small" type="primary">{apiObj.method}</Button>]}
+                                >
+                                    <List.Item.Meta
+                                        title={<span>{apiObj.title}</span>}
+                                        description={<span>{apiObj.endPoint}</span>}
+                                    />
+                                </List.Item>}
+                        />
+                    </div>
+                </div>
+                <div className="api-list">
+                    <div className="api-item">
+                        <Divider orientation="left">Data Store</Divider>
+
+                        <List
+                            size="default"
+                            bordered
+                            dataSource={dsApiList}
                             renderItem={apiObj =>
                                 <List.Item
                                     actions={[<Button onClick={this.handleApiClick(apiObj)} size="small" type="primary">{apiObj.method}</Button>]}

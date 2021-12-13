@@ -3,9 +3,10 @@ import { Form, Input, Button, Select, Row, Col, message } from 'antd';
 import { loginService } from '../service/LoginService';
 import Sha256 from 'sha256';
 import axios from 'axios';
-import { APIs } from '../common/constant';
+import { APIs, serverName } from '../common/constant';
 import { isEmpty } from 'lodash';
 const { Option } = Select;
+
 
 class HeaderForm extends React.Component {
 
@@ -81,20 +82,19 @@ class HeaderForm extends React.Component {
                 
                     <Col span={5}>
                         <Form.Item label="Server" >
-                            <Select 
+                            <Select placeholder="Server"
                             disabled={!isEmpty(window.localStorage.getItem("fareyeApiKey"))}
                             // value={()=> (window.localStorage.getItem("fareyeServer"))}
                             onChange={this.handleEnvChange}>
-                                <Option value="https://qatest.fareye.co">QaTest</Option>
-                                <Option value="https://staging.fareye.co">Staging</Option>
-                                <Option value="https://fareye.co">Main Prod</Option>
-                                <Option value="http://localhost:8080">Localhost</Option>
+                                {serverName.map((entry) => (
+                                    <Option key={entry.name} value={entry.value}>{entry.name}</Option>
+                                ))};
                             </Select>
                         </Form.Item>
                     </Col>
                     <Col span={5}>
                         <Form.Item label="User Name">
-                            <Input placeholder="user name" 
+                            <Input placeholder="User Name" 
                             disabled={!isEmpty(window.localStorage.getItem("fareyeApiKey"))}
                             onChange={(e)=>{
                                 this.setState({username:e.target.value})
@@ -105,7 +105,7 @@ class HeaderForm extends React.Component {
                         <Form.Item label="Password"
                            
                         >
-                            <Input type="password" placeholder="password" 
+                            <Input type="password" placeholder="Password" 
                              disabled={!isEmpty(window.localStorage.getItem("fareyeApiKey"))}
                             onChange={(e)=>{
                                 this.setState({password:e.target.value})
