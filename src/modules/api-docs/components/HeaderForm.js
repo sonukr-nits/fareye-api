@@ -82,7 +82,7 @@ class HeaderForm extends React.Component {
                 
                     <Col span={5}>
                         <Form.Item label="Server" >
-                            <Select 
+                            <Select placeholder="Server"
                             disabled={!isEmpty(window.localStorage.getItem("fareyeApiKey"))}
                             // value={()=> (window.localStorage.getItem("fareyeServer"))}
                             onChange={this.handleEnvChange}>
@@ -94,7 +94,7 @@ class HeaderForm extends React.Component {
                     </Col>
                     <Col span={5}>
                         <Form.Item label="User Name">
-                            <Input placeholder="user name" 
+                            <Input placeholder="User Name" 
                             disabled={!isEmpty(window.localStorage.getItem("fareyeApiKey"))}
                             onChange={(e)=>{
                                 this.setState({username:e.target.value})
@@ -105,7 +105,7 @@ class HeaderForm extends React.Component {
                         <Form.Item label="Password"
                            
                         >
-                            <Input type="password" placeholder="password" 
+                            <Input type="password" placeholder="Password" 
                              disabled={!isEmpty(window.localStorage.getItem("fareyeApiKey"))}
                             onChange={(e)=>{
                                 this.setState({password:e.target.value})

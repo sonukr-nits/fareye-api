@@ -93,11 +93,12 @@ class ApiList extends React.Component {
             <div className="api-listing">
                 <div className="api-list">
                     <div className="api-item">
-                        <Divider orientation="left">Transactions</Divider>
+                        <Divider orientation="left">Process</Divider>
+
                         <List
                             size="default"
                             bordered
-                            dataSource={transactionsApiData}
+                            dataSource={processApiData}
                             renderItem={apiObj =>
                                 <List.Item
                                     actions={[<Button onClick={this.handleApiClick(apiObj)} size="small" type="primary">{apiObj.method}</Button>]}
@@ -112,12 +113,11 @@ class ApiList extends React.Component {
                 </div>
                 <div className="api-list">
                     <div className="api-item">
-                        <Divider orientation="left">Process</Divider>
-
+                        <Divider orientation="left">Transactions</Divider>
                         <List
                             size="default"
                             bordered
-                            dataSource={processApiData}
+                            dataSource={transactionsApiData}
                             renderItem={apiObj =>
                                 <List.Item
                                     actions={[<Button onClick={this.handleApiClick(apiObj)} size="small" type="primary">{apiObj.method}</Button>]}
